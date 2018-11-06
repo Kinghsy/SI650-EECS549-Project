@@ -1,0 +1,5 @@
+# exclude everything except following directories
+
+#.gitignore
+.DS_Store
+
