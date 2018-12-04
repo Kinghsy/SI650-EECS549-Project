@@ -2,4 +2,8 @@
 
 #.gitignore
 .DS_Store
+.idea
+venu
+__pycache__
+
 
