@@ -6,9 +6,9 @@
 
 import os
 
-os.getcwd()
-os.path.join(os.getcwd(),"hello")
+from nltk.corpus import stopwords
 
+stop_words = set(stopwords.words('english'))
 
 data_file_name = "DataSrc"
 dataset_1 = "FCA 2006-2009"
