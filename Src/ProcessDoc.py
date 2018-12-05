@@ -110,35 +110,22 @@ class DocList:
         for xml_name in xml_files:
             print(xml_name)
             self.doc_list.append(Doc(self.folder_path, xml_name, self.doc_size))
-            print(self.doc_size)
             self.doc_size = self.doc_size + 1
-
 
 
 
 if __name__ == '__main__':
 
     path = Const.path_to_data_FCA_fulltext
-    # filename = "06_100.xml"
-    # doc1 = Doc(path, filename, 0)
-    # pickle.dump(doc1, open("a.dat", 'wb'), True)
-    # doc2 = pickle.load(open("a.dat", 'rb'))
-    # print(doc2.catchphrases)
-    # print(doc2.catchphrases_clear)
-    #  print(docu_list.doc_list)
-    # pickle.dump(docu_list, open("..\DataSrc\FCA_06.dat", 'wb'), True)
-    # docu_list = pickle.load(open("..\DataSrc\FCA_06.dat", 'rb'))
-
-    # generating corresponding label
     docu_list = DocList(path)
     print(docu_list.doc_size)
+
+    # generating corresponding label
     d = defaultdict(lambda : 0)
-    print("start dict")
     for doc in docu_list.doc_list:
         print(doc.doc_id)
         for word in doc.catchphrases_clear:
             d[word] = d[word] + 1
-    print("end dict")
     sorted_d = sorted(d.items(), key = lambda x: x[1], reverse=True)
     f = open("..\DataSrc\FCA_label_full.txt", 'w')
     for (key, value) in sorted_d:
@@ -152,6 +139,21 @@ if __name__ == '__main__':
     for value in list:
         print(value, file=f)
     f.close()
+
+    # generating dat file for tf-idf
+    # data only includes the abstract
+    f = open("..\DataSrc\FCA_abstract_raw.dat", 'w')
+    f1 = open("..\DataSrc\FCA_abstract_raw.txt", 'w')
+    for doc in docu_list.doc_list:
+        s = ""
+        for sen in doc.catchphrases:
+            s = s + " " + sen
+        s = s + '\n'
+        print(s)
+        f.write(s)
+        f1.write(s)
+    f.close()
+    f1.close()
 
 
 
