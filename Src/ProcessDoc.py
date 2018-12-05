@@ -31,6 +31,10 @@ def CleanSentence(text_origin):
     text = re.sub(r"\'d", " would ", text)
     text = re.sub(r"\'ll", " will ", text)
 
+    text = re.sub(r"\)", " ", text)
+    text = re.sub(r"\(", " ", text)
+    text = re.sub(r"\'", " ", text)
+
     text = text.replace('&', ' and')
     text = text.replace('@', ' at')
     text = text.replace('$', ' dollar')
@@ -41,19 +45,15 @@ def CleanSentence(text_origin):
 
 class Doc:
 
-    doc_id = 0
-    name = ""
-    link = ""
-    catchphrases = []  # inital version consists of sentences
-    catchphrases_origin = []  # origin version consists of words
-    catchphrases_clear = []  # clear version removes stop words
-    sentences = []
-    sentences_origin = []
-    sentences_clear = []
-
     def __init__(self, path, filename, id):
 
         self.doc_id = id
+        self.catchphrases = []  # inital version consists of sentences
+        self.catchphrases_origin = []  # origin version consists of words
+        self.catchphrases_clear = []  # clear version removes stop words
+        self.sentences = []
+        self.sentences_origin = []
+        self.sentences_clear = []
 
         direc = Const.PathGenerator(path, filename)
         text = open(direc).read()
@@ -98,28 +98,28 @@ class DocList:
     doc_list = []
     folder_path = ""
 
-    def __init__(self, path, year):
+    def __init__(self, path):
         self.doc_size = 0
         self.folder_path = path
         file_list = os.listdir(self.folder_path)
         print(file_list)
         xml_files = []
         for file in file_list:
-            if (not os.path.isdir(file)) and (file[0:2] == year):
+            if (not os.path.isdir(file)):
                 xml_files.append(file)
         for xml_name in xml_files:
             print(xml_name)
-            newDoc = Doc(self.folder_path, xml_name, self.doc_size)
+            self.doc_list.append(Doc(self.folder_path, xml_name, self.doc_size))
             print(self.doc_size)
             self.doc_size = self.doc_size + 1
-            self.doc_list.append(newDoc)
+
 
 
 
 if __name__ == '__main__':
 
     path = Const.path_to_data_FCA_fulltext
-    # filename = "06_1.xml"
+    # filename = "06_100.xml"
     # doc1 = Doc(path, filename, 0)
     # pickle.dump(doc1, open("a.dat", 'wb'), True)
     # doc2 = pickle.load(open("a.dat", 'rb'))
@@ -129,7 +129,8 @@ if __name__ == '__main__':
     # pickle.dump(docu_list, open("..\DataSrc\FCA_06.dat", 'wb'), True)
     # docu_list = pickle.load(open("..\DataSrc\FCA_06.dat", 'rb'))
 
-    docu_list = DocList(path, "06")
+    # generating corresponding label
+    docu_list = DocList(path)
     print(docu_list.doc_size)
     d = defaultdict(lambda : 0)
     print("start dict")
@@ -138,47 +139,19 @@ if __name__ == '__main__':
         for word in doc.catchphrases_clear:
             d[word] = d[word] + 1
     print("end dict")
-    pickle.dump(d, open("..\DataSrc\FCA_06_label_full.dat", 'wb'), True)
-
-    docu_list1 = DocList(path, "07")
-    print(docu_list1.doc_size)
-    dd = defaultdict(lambda : 0)
-    print("start dict")
-    for doc in docu_list1.doc_list:
-        print(doc.doc_id)
-        for word in doc.catchphrases_clear:
-            dd[word] = dd[word] + 1
-    print("end dict")
-    pickle.dump(dd, open("..\DataSrc\FCA_07_label_full.dat", 'wb'), True)
-
-    docu_list2 = DocList(path, "08")
-    print(docu_list2.doc_size)
-    ddd = defaultdict(lambda : 0)
-    print("start dict")
-    for doc in docu_list2.doc_list:
-        print(doc.doc_id)
-        for word in doc.catchphrases_clear:
-            ddd[word] = ddd[word] + 1
-    print("end dict")
-    pickle.dump(ddd, open("..\DataSrc\FCA_08_label_full.dat", 'wb'), True)
-
-    docu_list3 = DocList(path, "08")
-    print(docu_list3.doc_size)
-    dddd = defaultdict(lambda : 0)
-    print("start dict")
-    for doc in docu_list3.doc_list:
-        print(doc.doc_id)
-        for word in doc.catchphrases_clear:
-            dddd[word] = dddd[word] + 1
-    print("end dict")
-    pickle.dump(dddd, open("..\DataSrc\FCA_09_label_full.dat", 'wb'), True)
-
-    sorted(d.items(), key = lambda x: x[1], reverse=True)
+    sorted_d = sorted(d.items(), key = lambda x: x[1], reverse=True)
+    f = open("..\DataSrc\FCA_label_full.txt", 'w')
+    for (key, value) in sorted_d:
+        print("{0} {1}".format(key, value), file=f)
+    f.close()
     list = []
     print("end sort")
-    for x,y in d:
+    for (x,y) in sorted_d:
         list.append(x)
-    print(list)
-    print(d)
+    f = open("..\DataSrc\FCA_label.txt", 'w')
+    for value in list:
+        print(value, file=f)
+    f.close()
+
 
 
