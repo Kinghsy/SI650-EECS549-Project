@@ -45,4 +45,5 @@ def main(queries, label):
     return docu_list
 
 ranks = main("trade", [])
-print(len(ranks))
+print(ranks)
+# print(len(ranks))
