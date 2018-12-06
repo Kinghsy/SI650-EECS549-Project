@@ -2,12 +2,25 @@ import tkinter as tk
 import tkinter.scrolledtext as scrolledtext
 import tkinter.ttk as ttk
 
+#from main import load_label
+
+total_label_list = []
+label_pos_s = 0
+label_pos_e = 9
+
+def load_label(s, e):
+    l3 = label1[:]
+    l3.extend(label2[:])
+    return l3
 
 def search_click():
     print(query_entry.get())
 
 def pre_page():
-    for i
+    label_pos_s = label_pos_s + 10
+    label_pos_e = label_pos_e + 10
+    list = load_label()
+    return 0
 
 def next_page():
     return 0
@@ -42,7 +55,6 @@ if __name__ == "__main__":
     # labelframe = tk.LabelFrame(gui, text="labels", padx=20, pady=120)
     # labelframe.config(font = ("Courier", 16))
     # labelframe.place(x=20, y=120)
-    total_label_list = []
     label1 = ["11111111", "22222222", "33333333", "44444444", "55555555"]
     label2 = ["66666666", "77777777", "88888888", "99999999", "00000000"]
     check_var1 = [tk.IntVar() for w in range(0, 5)]
