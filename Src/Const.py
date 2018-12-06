@@ -16,4 +16,14 @@ path_to_data_FCA_fulltext = os.path.join(os.getcwd(), "..", data_file_name, data
 def PathGenerator(dir, subdir):
     return os.path.join(dir, subdir)
 
+path_to_FCA_abstract_raw = os.path.join(os.getcwd(), "..", data_file_name, "FCA_abstract_raw.txt")
+
+model_file = "lda_model"
+path_to_lda = os.path.join(os.getcwd(), model_file, "lda.pkl")
+path_to_index = os.path.join(os.getcwd(), model_file, "index.pkl")
+path_to_dictionary = os.path.join(os.getcwd(), model_file, "dictionary.pkl")
+
+BOUND = 20
+ideal_length = 100
+
 # print(path_to_data_FCA_fulltext)
