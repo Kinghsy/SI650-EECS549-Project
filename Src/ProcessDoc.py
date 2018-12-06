@@ -4,6 +4,8 @@ import Const
 import re
 import os
 from nltk.tokenize import word_tokenize
+from nltk.stem.wordnet import WordNetLemmatizer
+import nltk
 from collections import defaultdict
 import pickle
 
@@ -82,7 +84,15 @@ class Doc:
             word_tokens = word_tokenize(clean_sen)
             filtered_words = [w for w in word_tokens if not w in Const.stop_words]
             self.catchphrases_origin.extend(word_tokens)
-            self.catchphrases_clear.extend(filtered_words)
+            word_tag = nltk.pos_tag(filtered_words)
+            pocessed_word = []
+            for (word, tag) in word_tag:
+                if (tag[0:2] == "VB"):
+                    temp = WordNetLemmatizer().lemmatize(word, 'v')
+                else:
+                    temp = word
+                pocessed_word.append(temp[:])
+            self.catchphrases_clear.extend(pocessed_word)
         # for sen in self.sentences:
         #     clean_sen = CleanSentence(sen)
         #     word_tokens = word_tokenize(clean_sen)
@@ -135,8 +145,13 @@ if __name__ == '__main__':
     print("end sort")
     for (x,y) in sorted_d:
         list.append(x)
+    stoplabel = []
+    f = open("..\DataSrc\stoplabel.txt", "r")
+    stop_content = f.read().splitlines()
+    f.close()
+    filtered_word = [w for w in list if not w in stop_content]
     f = open("..\DataSrc\FCA_label.txt", 'w')
-    for value in list:
+    for value in filtered_word:
         print(value, file=f)
     f.close()
 

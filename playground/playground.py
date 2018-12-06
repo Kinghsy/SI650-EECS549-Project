@@ -23,9 +23,9 @@
 # print(word_tokens)
 # print(filtered_sentence)
 
-d = {'a': 1, 'b': 2, 'c': 3}
-sorted_d = sorted(d.items(), key = lambda k : k[1], reverse = True)
-print(sorted_d)
+# d = {'a': 1, 'b': 2, 'c': 3}
+# sorted_d = sorted(d.items(), key = lambda k : k[1], reverse = True)
+# print(sorted_d)
 
 
 # class test:
@@ -39,3 +39,20 @@ print(sorted_d)
 #
 # t = test(2)
 # print(t.l)
+
+# from nltk.tokenize import word_tokenize
+# import nltk
+# from nltk.stem.wordnet import WordNetLemmatizer
+#
+#
+# print(WordNetLemmatizer().lemmatize('made','v'))
+
+# text = word_tokenize("that could is a good solution, but we should carefully thought about it")
+# pos_tag = nltk.pos_tag(text)
+# print(pos_tag)
+# print(pos_tag[2][1])
+
+stoplabel = []
+f = open("..\DataSrc\stoplabel.txt", "r")
+content = f.read().splitlines()
+print(content)
