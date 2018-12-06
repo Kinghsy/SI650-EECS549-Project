@@ -114,14 +114,13 @@ class DocList:
         file_list = os.listdir(self.folder_path)
         print(file_list)
         xml_files = []
-        for file in file_list:
-            if (not os.path.isdir(file)):
-                xml_files.append(file)
+        f = open(Const.PathGenerator(path, "summary_xml.txt"), 'r')
+        xml_files = f.read().splitlines()
+        f.close()
         for xml_name in xml_files:
             print(xml_name)
             self.doc_list.append(Doc(self.folder_path, xml_name, self.doc_size))
             self.doc_size = self.doc_size + 1
-
 
 
 if __name__ == '__main__':
