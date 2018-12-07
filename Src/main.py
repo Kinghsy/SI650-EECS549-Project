@@ -15,6 +15,12 @@ def main(queries, label):
 
     with open(Const.path_to_FCA_abstract_raw) as f:
         lines = f.readlines()
+    
+    with open(Const.path_to_title_file) as f:
+        title_list = f.readlines()
+    
+    with open(Const.path_to_link_file) as f:
+        link_list = f.readlines()
 
     #queries = "1 2 3 4"
     #label = ['murder', 'trade', 'business']
@@ -41,7 +47,7 @@ def main(queries, label):
             if i[0] not in ranks:
                 ranks.append(i[0])
     
-    return ranks
+    return [(title_list[i], link_list[i], lines[i]) for i in ranks]
     #docu_list = ProcessDoc.DocList(path_to_data_FCA_fulltext)
     #return docu_list
 
