@@ -57,10 +57,17 @@
 # content = f.read().splitlines()
 # print(content)
 
+#
+# list = [4, 3, 2, 1]
+# list.remove(4)
+# print(list)
+# if 5 in list:
+#     list.remove(5)
+# print(list)
 
-list = [4, 3, 2, 1]
-list.remove(4)
-print(list)
-if 5 in list:
-    list.remove(5)
-print(list)
+import sys
+sys.path.append("..\\Src")
+import main
+
+result = main.main_driver("trade", "act")
+print(result[0][0])
