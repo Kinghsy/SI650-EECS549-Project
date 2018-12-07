@@ -52,7 +52,15 @@
 # print(pos_tag)
 # print(pos_tag[2][1])
 
-stoplabel = []
-f = open("..\DataSrc\stoplabel.txt", "r")
-content = f.read().splitlines()
-print(content)
+# stoplabel = []
+# f = open("..\DataSrc\stoplabel.txt", "r")
+# content = f.read().splitlines()
+# print(content)
+
+
+list = [4, 3, 2, 1]
+list.remove(4)
+print(list)
+if 5 in list:
+    list.remove(5)
+print(list)
