@@ -28,6 +28,6 @@ path_to_index = os.path.join(os.getcwd(), model_file, "index.pkl")
 path_to_dictionary = os.path.join(os.getcwd(), model_file, "dictionary.pkl")
 
 BOUND = 20
-ideal_length = 100
+ideal_length = 50
 
 # print(path_to_data_FCA_fulltext)
