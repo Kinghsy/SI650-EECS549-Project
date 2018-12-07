@@ -156,18 +156,22 @@ if __name__ == '__main__':
 
     # generating dat file for tf-idf
     # data only includes the abstract
-    f = open("..\DataSrc\FCA_abstract_raw.dat", 'w')
-    f1 = open("..\DataSrc\FCA_abstract_raw.txt", 'w')
+    f_abstract = open("..\DataSrc\FCA_abstract_raw.txt", 'w')
+    f_title = open("..\DataSrc\FCA_title_raw.txt", "w")
+    f_link = open("..\DataSrc\FCA_link_raw.txt", "w")
     for doc in docu_list.doc_list:
         s = ""
         for sen in doc.catchphrases:
-            s = s + " " + sen
+            s = s + " " + sen.upper()[0:1] + sen[1:] + "."
         s = s + '\n'
-        print(s)
-        f.write(s)
-        f1.write(s)
-    f.close()
-    f1.close()
+        print(s[1:])
+        f_abstract.write(s[1:])
+        f_title.write(doc.name + '\n')
+        f_link.write(doc.link + '\n')
+    f_abstract.close()
+    f_title.close()
+    f_link.close()
+
 
 
 

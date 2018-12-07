@@ -17,6 +17,7 @@ def PathGenerator(dir, subdir):
     return os.path.join(dir, subdir)
 
 path_to_FCA_abstract_raw = os.path.join(os.getcwd(), "..", data_file_name, "FCA_abstract_raw.txt")
+path_to_label_file = os.path.join(os.getcwd(), "..", data_file_name, "FCA_label.txt")
 
 model_file = "lda_model"
 path_to_lda = os.path.join(os.getcwd(), model_file, "lda.pkl")
